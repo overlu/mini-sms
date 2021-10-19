@@ -12,10 +12,14 @@ use Overtrue\EasySms\Strategies\RandomStrategy;
  * @see https://github.com/overtrue/easy-sms
  */
 return [
-    // HTTP 请求的超时时间（秒）
+    /**
+     * HTTP 请求的超时时间（秒）
+     */
     'timeout' => 5.0,
 
-    // 默认发送配置
+    /**
+     * 默认发送配置
+     */
     'default' => [
         // 网关调用策略，默认：顺序调用
         'strategy' => OrderStrategy::class,
@@ -27,7 +31,9 @@ return [
             'aliyun',
         ],
     ],
-    // 可用的网关配置
+    /**
+     * 可用的网关配置
+     */
     'gateways' => [
         'aliyun' => [
             'access_key_id' => env('ALIYUN_ACCESS_ID'),
@@ -45,5 +51,13 @@ return [
             'content' => '您的验证码{code}，该验证码5分钟内有效，请勿泄漏于他人！',
             'template' => 'SMS_001',
         ]*/
-    ]
+    ],
+    /**
+     * 记录发送错误日志
+     */
+    'enable_error_log' => true,
+    /**
+     * 记录发送记录日志
+     */
+    'enable_send_log' => false
 ];

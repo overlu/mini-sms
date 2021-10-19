@@ -41,8 +41,17 @@ class SMS extends Facade
     {
         try {
             app('sms')->send($to, $message, $gateways);
+            if (config('sms.enable_send_log', false)) {
+                Log::info([
+                    'to' => $to,
+                    'message' => $message,
+                    'gateways' => $gateways
+                ], [], 'sms.send');
+            }
         } catch (Exception $exception) {
-            Log::error($exception->getExceptions(), [], 'sms');
+            if (config('sms.enable_error_log', false)) {
+                Log::error($exception->getExceptions(), [], 'sms.error');
+            }
 //            throw $exception;
             throw new SMSException(json_encode($exception->getExceptions(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE), 90000);
         }
