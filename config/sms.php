@@ -31,6 +31,7 @@ return [
             'aliyun',
         ],
     ],
+
     /**
      * 可用的网关配置
      */
@@ -42,9 +43,19 @@ return [
         ],
         //...
     ],
-    'verify_code_length' => 6,
+
     /**
-     * 常用模块
+     * 验证码长度
+     */
+    'verify_code_length' => 6,
+
+    /**
+     * 验证码有效时间（秒）
+     */
+    'verify_code_expired' => 300,
+
+    /**
+     * 常用短信模板
      */
     'templates' => [
         /*'verify_code' => [
@@ -52,12 +63,14 @@ return [
             'template' => 'SMS_001',
         ]*/
     ],
+
     /**
      * 记录发送错误日志
      */
-    'enable_error_log' => true,
+    'enable_error_log' => env('ENABLE_SMS_ERROR_LOG', true),
+
     /**
      * 记录发送记录日志
      */
-    'enable_send_log' => false
+    'enable_send_log' => env('ENABLE_SMS_SEND_LOG', false),
 ];

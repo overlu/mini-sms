@@ -16,7 +16,7 @@ use Overtrue\EasySms\Contracts\MessageInterface;
 
 /**
  * Class SMS
- * @package App\Facades
+ * @package MiniSMS\Facades
  * @see \Overtrue\EasySms\EasySms
  */
 class SMS extends Facade
@@ -26,7 +26,7 @@ class SMS extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'sms';
     }
@@ -52,7 +52,6 @@ class SMS extends Facade
             if (config('sms.enable_error_log', false)) {
                 Log::error($exception->getExceptions(), [], 'sms.error');
             }
-//            throw $exception;
             throw new SMSException(json_encode($exception->getExceptions(), JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE), 90000);
         }
     }
