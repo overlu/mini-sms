@@ -7,7 +7,7 @@
         "psr-4": {
           "MiniSMS\\": "src/"
         },
-        "files": ["src/functions.php"]
+        "files": ["src/helpers.php"]
     },
     "require": {
         "php": ">=7.4",
