@@ -14,7 +14,7 @@ class VerifyCode extends Rule
 {
 
     /** @var string */
-    protected string $message = "The :attribute is wrong";
+    protected string $message = "The verify code is wrong";
 
     /** @var array */
     protected array $fillableParams = ['verifycode'];

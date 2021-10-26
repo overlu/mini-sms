@@ -28,7 +28,7 @@ class VerifyCode
     public function make(string $mobile, int $length = 6): int
     {
         $verifyCode = random_int(10 ** ($length - 1), (10 ** $length) - 1);
-        redis()->setex('verifyCode:' . $mobile, $this->expired, $verifyCode);
+        redis()->setex('verify_code:' . $mobile, $this->expired, $verifyCode);
         return $verifyCode;
     }
 
@@ -39,7 +39,7 @@ class VerifyCode
      */
     public function get(string $mobile): string
     {
-        $code = redis()->get('verifyCode:' . $mobile);
+        $code = redis()->get('verify_code:' . $mobile);
         return $code ? (string)$code : '';
     }
 
@@ -50,7 +50,7 @@ class VerifyCode
      */
     public function delete(string $mobile): bool
     {
-        return redis()->delete('verifyCode:' . $mobile) ? true : false;
+        return redis()->delete('verify_code:' . $mobile) ? true : false;
     }
 
     /**
