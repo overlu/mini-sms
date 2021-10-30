@@ -67,7 +67,7 @@ class VerifyCode
      */
     public function verify(string $mobile, string $verifyCode): bool
     {
-        if (!$mobile || !$verifyCode) {
+        if (empty($mobile) || empty($verifyCode)) {
             return false;
         }
         if (is_dev_env(true) && config('sms.verify_code.enable_dev_mode', false) && $verifyCode === config('sms.verify_code.dev_mode_verifycode', '666666')) {
