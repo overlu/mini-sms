@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace MiniSMS;
 
 use Exception;
+use Mini\Contracts\Container\BindingResolutionException;
 
 class VerifyCode
 {
@@ -15,7 +16,7 @@ class VerifyCode
 
     public function __construct()
     {
-        $this->expired = config('sms.verify_code_expired', $this->expired);
+        $this->expired = config('sms.verify_code.verify_code_expired', $this->expired);
     }
 
     /**
@@ -25,8 +26,11 @@ class VerifyCode
      * @return int
      * @throws Exception
      */
-    public function make(string $mobile, int $length = 6): int
+    public function make(string $mobile, int $length = 0): int
     {
+        if ($length < 1) {
+            $length = (int)config('sms.verify_code.verify_code_length', 6);
+        }
         $verifyCode = random_int(10 ** ($length - 1), (10 ** $length) - 1);
         redis()->setex('verify_code:' . $mobile, $this->expired, $verifyCode);
         return $verifyCode;
@@ -36,6 +40,7 @@ class VerifyCode
      * 获取验证码
      * @param string $mobile
      * @return string
+     * @throws BindingResolutionException
      */
     public function get(string $mobile): string
     {
@@ -47,6 +52,7 @@ class VerifyCode
      * 移除验证码
      * @param string $mobile
      * @return bool
+     * @throws BindingResolutionException
      */
     public function delete(string $mobile): bool
     {
@@ -57,9 +63,13 @@ class VerifyCode
      * @param string $mobile
      * @param string $verifyCode
      * @return bool
+     * @throws Exception
      */
     public function verify(string $mobile, string $verifyCode): bool
     {
+        if (is_dev_env(true) && config('sms.verify_code.enable_dev_mode', false) && $verifyCode === config('sms.verify_code.dev_mode_verifycode', '666666')) {
+            return true;
+        }
         return ($code = $this->get($mobile)) && $code === $verifyCode;
     }
 }

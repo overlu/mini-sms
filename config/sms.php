@@ -45,14 +45,30 @@ return [
     ],
 
     /**
-     * 验证码长度
+     * 验证码相关配置
      */
-    'verify_code_length' => 6,
+    'verify_code' => [
+        /**
+         * 允许验证码开启调试模式，
+         */
+        'enable_dev_mode' => env('ENABLE_SMS_DEV_MODE', false),
 
-    /**
-     * 验证码有效时间（秒）
-     */
-    'verify_code_expired' => 300,
+        /**
+         * 调试验证码
+         * 只能在调试模式中使用，production无法使用
+         */
+        'dev_mode_verifycode' => '666666',
+
+        /**
+         * 验证码长度
+         */
+        'verify_code_length' => 6,
+
+        /**
+         * 验证码有效时间（秒）
+         */
+        'verify_code_expired' => 300,
+    ],
 
     /**
      * 常用短信模板

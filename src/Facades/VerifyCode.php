@@ -11,7 +11,7 @@ use Mini\Facades\Facade;
 
 /**
  * Class VerifyCode
- * @method static int make(string $mobile, int $length = 6)
+ * @method static int make(string $mobile, int $length = 0)
  * @method static string get(string $mobile)
  * @method static bool delete(string $mobile)
  * @method static bool verify(string $mobile, string $verifyCode)
