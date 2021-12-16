@@ -56,7 +56,7 @@ class VerifyCode
      */
     public function delete(string $mobile): bool
     {
-        return redis()->delete('verify_code:' . $mobile) ? true : false;
+        return (bool)redis()->del('verify_code:' . $mobile);
     }
 
     /**
