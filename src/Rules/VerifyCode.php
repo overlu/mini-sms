@@ -27,7 +27,10 @@ class VerifyCode extends Rule
      */
     public function check($value): bool
     {
+        if (!is_string($value)) {
+            return false;
+        }
         $verifycode = (string)$this->parameter('verifycode', Request::input('verifycode', Request::input('verify_code', '')));
-        return \MiniSMS\Facades\VerifyCode::verify((string)$value, $verifycode);
+        return \MiniSMS\Facades\VerifyCode::verify($value, $verifycode);
     }
 }
