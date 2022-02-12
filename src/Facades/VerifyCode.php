@@ -14,7 +14,7 @@ use Mini\Facades\Facade;
  * @method static int make(string $mobile, int $length = 0)
  * @method static string get(string $mobile)
  * @method static bool delete(string $mobile)
- * @method static bool verify(string $mobile, string $verifyCode)
+ * @method static bool verify(string $mobile, string $verifyCode, bool $removeCodeIfPass = true)
  * @package MiniSMS\Facades
  * @see \MiniSMS\VerifyCode
  */
