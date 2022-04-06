@@ -71,9 +71,15 @@ class VerifyCode
         if (empty($mobile) || empty($verifyCode)) {
             return false;
         }
-        if (is_dev_env(true) && config('sms.verify_code.enable_dev_mode', false) && $verifyCode === config('sms.verify_code.dev_mode_verifycode', '666666')) {
-            return true;
+        if (config('sms.verify_code.enable_dev_mode', false) && $verifyCode === config('sms.verify_code.dev_mode_verifycode', '666666')) {
+            if (is_dev_env(true)) {
+                return true;
+            }
+            if (in_array($mobile, config('sms.verify_code.dev_mode_mobiles'), true)) {
+                return true;
+            }
         }
+
         $pass = ($code = $this->get($mobile)) && $code === $verifyCode;
         if ($pass && $removeCodeIfPass) {
             $this->delete($mobile);

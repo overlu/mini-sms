@@ -58,6 +58,11 @@ return [
          * 只能在调试模式中使用，production无法使用
          */
         'dev_mode_verifycode' => '666666',
+        /**
+         * 调试手机号
+         * production可以使用
+         */
+        'dev_mode_mobiles' => [],
 
         /**
          * 验证码长度
